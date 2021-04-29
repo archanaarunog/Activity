@@ -1,5 +1,9 @@
 #include <avr/io.h>
 #include<avr/interrupt.h>
+/**
+ * @brief To generate the PWM 
+ * 
+ */
 void Activity3()
 {
     unsigned volatile int read_ADC_val;
@@ -7,9 +11,9 @@ void Activity3()
     DDRD|=(1<<PD6); // SET PIN PORT D
 
     TCCR0A|=(1<<COM0A1)|(1<<WGM01) |(1<<WGM00);
-    // TIMER 0 control reg a, non inv mode com0, fast pwm wgm
+    // TIMER 0 control reg A, non inverting mode com0, fast pwm wgm
 
-    // timer 0 control reg b prescalar 64, f clk =16mhz
+    // timer 0 control reg B, prescalar 64, frequency clk =16Mhz
 
     TCCR0B|=(1<<CS01)|(1<<CS00);
 

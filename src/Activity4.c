@@ -5,21 +5,24 @@
 #define BAUD 9600
 #define F_CPU 16000000
 #define BAUD_RATE ((F_CPU)/(BAUD*16UL)-1)
+/**
+ * @brief initialising the ports for USART
+ * 
+ */
 
 void USART_init()
 {
-    /*PD0 RXD PD1 TXD*/
-
-    /*sET BAUD RATE TO REGISTER*/
-    UBRR0H = (BAUD_RATE>>8);
+    UBRR0H = (BAUD_RATE>>8); // set baud rate to register
     UBRR0L = BAUD_RATE;
 
-    /*SETTING SYNCHRONOUS COMMUNICATION OF 8 BIT TRANSCIEVER*/
-    UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
-
-    /*ENABLE THE RECIEVER AND TRANSIMTTER*/
-    UCSR0B = (1<<RXEN0) | (1<<TXEN0) | (1<<RXCIE0) | (1<<TXCIE0);
+    UCSR0C = (1<<UCSZ01) | (1<<UCSZ00); // set syn com for 8 bit tx
+    UCSR0B = (1<<RXEN0) | (1<<TXEN0) | (1<<RXCIE0) | (1<<TXCIE0); //enable transmitter and reciever
 }
+/**
+ * @brief To write the data 
+ * 
+ * @param data 
+ */
 
 void write(char data)
 {
@@ -29,7 +32,11 @@ void write(char data)
     }
     UDR0=data;
 }
-
+/**
+ * @brief Read the data and go to write function and display message
+ * 
+ * @param data 
+ */
 void Display(uint16_t data)
 {
     int i=0;

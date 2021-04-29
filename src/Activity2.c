@@ -1,9 +1,19 @@
 #include <avr/io.h>
+/**
+ * @brief To do the ADC conversion initiallising the ports
+ * 
+ */
 void init()
 {
     ADMUX=(1<<REFS0);
     ADCSRA =(1<<ADEN) | (7<<ADPS0);
 }
+/**
+ * @brief Read the adc and select the corresponding channels
+ * 
+ * @param ch 
+ * @return uint16_t 
+ */
 uint16_t read_ADC(uint8_t ch)
 {
     init();
