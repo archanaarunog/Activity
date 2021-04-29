@@ -17,24 +17,29 @@ void Activity3()
     while(1)
     {
         Activity1();
-        read_ADC_val=Activity2();
+        read_ADC_val=read_ADC();
         if(read_ADC_val > 0 && read_ADC_val <= 200)
         {
-            OCR0A=51;
-            Activity4("20 deg cel\n");
+            OCR0A=204;
+
         }
         else if(read_ADC_val >210 && read_ADC_val <=500)
         {
-             OCR0A=102;
+             OCR0A=409;
+
         }
         else if(read_ADC_val >510 && read_ADC_val <=700)
         {
-             OCR0A=180;
+             OCR0A=716;
+
         }
         else if(read_ADC_val >710 && read_ADC_val <=1024)
         {
-             OCR0A=250;
+             OCR0A=972;
+
         }
+        else
+            OCR0A=0;
     }
 
 }

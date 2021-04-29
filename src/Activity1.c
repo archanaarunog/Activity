@@ -8,7 +8,7 @@ void init_port()
     PORTD|=(1<<PD3); //set bit at high
 }
 
-void Activity1(void)
+int Activity1(void)
 {
     init_port();
        while(1)
@@ -17,12 +17,12 @@ void Activity1(void)
        if(!(PIND&(1<<PD2))&&!(PIND&(1<<PD3))) //switch press)
         {
         PORTB|=(1<<PB0);
-
+        return 1;
         }
         else
         {
         PORTB&=~(1<<PB0);
+        return 0;
         }
     }
-
 }

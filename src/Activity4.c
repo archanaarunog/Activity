@@ -4,52 +4,83 @@
 
 #define BAUD 9600
 #define F_CPU 16000000
-#define BAUDRATE ((F_CPU)/(BAUD*16UL)-1)
+#define BAUD_RATE ((F_CPU)/(BAUD*16UL)-1)
 
 void USART_init()
 {
     /*PD0 RXD PD1 TXD*/
 
     /*sET BAUD RATE TO REGISTER*/
-    UBRR0H = (BAUDRATE>>8);
-    UBRR0L = BAUDRATE;
+    UBRR0H = (BAUD_RATE>>8);
+    UBRR0L = BAUD_RATE;
 
     /*SETTING SYNCHRONOUS COMMUNICATION OF 8 BIT TRANSCIEVER*/
-    UCSR0C = (1<<UMSEL00) | (1<<UCSZ01) | (1<<UCSZ00);
+    UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
 
     /*ENABLE THE RECIEVER AND TRANSIMTTER*/
     UCSR0B = (1<<RXEN0) | (1<<TXEN0) | (1<<RXCIE0) | (1<<TXCIE0);
 }
 
-/*Program to read the value coming thru any otehr peripheral*/
-char USART_read()
+void write(char data)
 {
-    while( !(UCSR0A & (1<<RXC0)) );
-    return UDR0;
-}
-
-/*Program to write to other peripheral using UART*/
-void USART_write(char data)
-{
-    while( !(UCSR0A & (1<<UDRE0)) );
-    UDR0 = data;
-}
-
-/*To write a string data using a loop*/
-void write_string(char *string)
-{
-    int count;
-    int len_string = strlen(string);
-    for(count = 0 ; count < len_string; count++)
+    while(!(UCSR0A & (1<<UDRE0)))
     {
-        USART_write(*(string+count));
+
     }
+    UDR0=data;
 }
 
-
-void Activity4(char *data)
+void Display(uint16_t data)
 {
-
-    USART_init();
-    write_string(data);
+    int i=0;
+    if(data>=0 && data<=200)
+    {
+        unsigned char read[]="Temperature is 20 Degree Celcius";
+        i=0;
+        while(read[i]!=0)
+        {
+            write(read[i]);
+            i++;
+        }
+    }
+    else if(data>=210 && data<=500)
+    {
+        unsigned char read[]="Temperature is 25 Degree Celcius";
+        i=0;
+        while(read[i]!=0)
+        {
+            write(read[i]);
+            i++;
+        }
+    }
+    if(data>=510 && data<=700)
+    {
+        unsigned char read[]="Temperature is 29 Degree Celcius";
+        i=0;
+        while(read[i]!=0)
+        {
+            write(read[i]);
+            i++;
+        }
+    }
+    if(data>=710 && data<=1024)
+    {
+        unsigned char read[]="Temperature is 33 Degree Celcius";
+        i=0;
+        while(read[i]!=0)
+        {
+            write(read[i]);
+            i++;
+        }
+    }
+    if(data>710 && data<=1024)
+    {
+        unsigned char read[]="Temperature is 20 Degree Celcius";
+        i=0;
+        while(read[i]!=0)
+        {
+            write(read[i]);
+            i++;
+        }
+    }
 }
