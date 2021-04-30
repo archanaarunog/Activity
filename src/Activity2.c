@@ -3,7 +3,7 @@
  * @brief To do the ADC conversion initiallising the ports
  * 
  */
-void init()
+void init_ADC()
 {
     ADMUX=(1<<REFS0);
     ADCSRA =(1<<ADEN) | (7<<ADPS0);
@@ -14,9 +14,10 @@ void init()
  * @param ch 
  * @return uint16_t 
  */
+
 uint16_t read_ADC(uint8_t ch)
 {
-    init();
+    init_ADC();
     ADMUX &=0xf8; // clear the pins of adc
     ch &= 0b00000111; //channel value set
     ADMUX |=ch; // assign value of mux based on channel

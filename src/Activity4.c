@@ -1,7 +1,5 @@
 //#include<Activity4.h>
 #include<avr/io.h>
-#include<string.h>
-
 #define BAUD 9600
 #define F_CPU 16000000
 #define BAUD_RATE ((F_CPU)/(BAUD*16UL)-1)
